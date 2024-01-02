@@ -1,7 +1,7 @@
-quickSort(List<int> list) {
-  quickSortHelper(list, 0, list.length-1);
-  return list;
-}
+// quickSort(List<int> list) {
+//   quickSortHelper(list, 0, list.length-1);
+//   return list;
+// }
 
 quickSortHelper(List<int> list, int start, int end) {
 
@@ -43,7 +43,7 @@ void main() {
 
   print("Original List: $list");
 
-  quickSort(list);
+  quickSortHelper(list,0,list.length-1);
   // print(quickSort(exampleList));
 
   print("Sorted List: $list");
