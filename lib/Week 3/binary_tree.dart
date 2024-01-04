@@ -35,6 +35,24 @@ class BinaryTree {
     }
   }
 
+  printInPostOrder(Node? node) {
+    if (node == null) {
+      return 'tree is empty';
+    }
+    printInPostOrder(node.left);
+    printInPostOrder(node.right);
+    print(node.data);
+  }
+
+  printInPreOrder(Node? node) {
+    if (node == null) {
+      return 'tree is empty';
+    }
+    print(node.data);
+    printInPreOrder(node.left);
+    printInPreOrder(node.right);
+  }
+
   remove(int data) {
     root = _remove(root, data);
   }
@@ -95,6 +113,57 @@ class BinaryTree {
     return _isBST(node.left, node.data, min) &&
         _isBST(node.right, max, node.data);
   }
+
+  findClosest(Node? node, int target) {
+    int closest = node!.data;
+    int diff = (target - closest).abs();
+
+    while (node != null) {
+      if (target == node.data) {
+        return target;
+      } else {
+        if (target < node.data) {
+          if (target - node.data < diff) {
+            closest = node.data;
+            diff = (target - closest).abs();
+          }
+          node = node.left;
+        } else {
+          if (target - node.data < diff) {
+            closest = node.data;
+            diff = (target - closest).abs();
+          }
+          node = node.right;
+        }
+      }
+    }
+    return closest;
+  }
+
+  findTheClosest(Node? node, int target) {
+    int closest = node!.data;
+    int difference = target - closest;
+
+    while (node != null) {
+      if (node.data == target) {
+        return target;
+      }
+      if (node.data < target) {
+        if ((target - node.data) < difference) {
+          closest = node.data;
+          difference = target - closest;
+        }
+        node = node.right;
+      } else {
+        if ((target - node.data) < difference) {
+          closest = node.data;
+          difference = target - closest;
+        }
+        node = node.left;
+      }
+    }
+    return closest;
+  }
 }
 
 main() {
@@ -105,8 +174,13 @@ main() {
   tree.insert(15);
   tree.insert(5);
   tree.insert(25);
+  tree.printInPostOrder(tree.root);
+  tree.printInPreOrder(tree.root);
+
   // tree.printInOrder(tree.root);
-  tree.remove(15);
-  tree.printInOrder(tree.root);
-  print({tree.isBST(tree.root)});
+  // tree.remove(15);
+  // tree.printInOrder(tree.root);
+  // print({tree.isBST(tree.root)});
+  // print({tree.findClosest(tree.root, 12)});
+  // print({tree.findTheClosest(tree.root, 3)});
 }
